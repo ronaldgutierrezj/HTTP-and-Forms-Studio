@@ -4,11 +4,6 @@
 	<meta charset="utf-8">
 	<script>
 		// TODO: create a handler
-	function  setSearchEngine() {
-		console.log('hello')
-		engine = document.querySelector("input[name=engine]:checked").value
-		console.log(engine)
-
 		let actions  ={
 			"google" : "https://www.google.com/search",
 			"duckDuckGo" : "https://duckduckgo.com/",
@@ -16,30 +11,43 @@
 			"ask" : "https://www.ask.com/web"
 		}
 
-		let website = actions[engine];
-		document.querySelector("form").setAttribute("action", website)
-
-	};
+		function setSearchEngine() {
+			const buttonSelected = document.querySelector("input[name=engine]:checked");
+			const inpuText_web = document.querySelector("[name = q]");
+			
+	
+			if(!inpuText_web.value){
+				alert("Text is required!")
+				event.preventDefault()
+			} else if(!buttonSelected){
+				alert("Chosing an Engine is required!")
+				event.preventDefault()
+			} else {
+				let url = actions[buttonSelected.value];
+				document.querySelector("form").setAttribute("action", url);
+			}
+		
+			
+		};
 
     window.addEventListener("load", function(){
         // TODO: register the handler
 		let form = document.querySelector("form")
 		form.addEventListener("submit",setSearchEngine)
-
+		
     });
 	</script>
 </head>
 
 <body>
-
-	<form id="searchForm">
+	<form id="searchForm" target="_blank">
     <!-- TODO: add form elements -->
-	<input type="text" name="q">
-	<label>Google<input type="radio" name="engine" value="google"/></label>
-	<label>DuckDuckGo<input type="radio" name="engine" value="duckDuckGo"/></label>
-	<label>Bing<input type="radio" name="engine" value="bing"/></label>
-	<label>Ask<input type="radio" name="engine" value="ask"/></label>
-	<button value="Go!">Go!</button>
+		<input type="text" name="q">
+		<label>Google<input type="radio" name="engine" value="google"/></label>
+		<label>DuckDuckGo<input type="radio" name="engine" value="duckDuckGo"/></label>
+		<label>Bing<input type="radio" name="engine" value="bing"/></label>
+		<label>Ask<input type="radio" name="engine" value="ask"/></label>
+		<button value="Go!">Go!</button>
 	</form>
 
 </body>
